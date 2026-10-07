@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "CXGameModeBase.generated.h"
+#include "CHATGameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CHATX_API ACXGameModeBase : public AGameModeBase
+class CHAT_API ACHATGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	

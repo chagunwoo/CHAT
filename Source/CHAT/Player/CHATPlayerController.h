@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "CXPlayerController.generated.h"
+#include "CHATPlayerController.generated.h"
 
-class UCXChatInput;
+class UCHATChatInput;
 /**
  * 
  */
 UCLASS()
-class CHATX_API ACXPlayerController : public APlayerController
+class CHAT_API ACHATPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
@@ -24,10 +24,10 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UCXChatInput> ChatInputWidgetClass;
+	TSubclassOf<UCHATChatInput> ChatInputWidgetClass;
 
 	UPROPERTY()
-	TObjectPtr<UCXChatInput> ChatInputWidgetInstance;
+	TObjectPtr<UCHATChatInput> ChatInputWidgetInstance;
 	
 	FString ChatMessageString;
 };

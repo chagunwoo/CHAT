@@ -1,10 +1,10 @@
-// CXChatInput.h
+// CHATChatInput.h
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "CXChatInput.generated.h"
+#include "CHATChatInput.generated.h"
 
 class UEditableTextBox;
 
@@ -12,7 +12,7 @@ class UEditableTextBox;
  *
  */
 UCLASS()
-class CHATX_API UCXChatInput : public UUserWidget
+class CHAT_API UCHATChatInput : public UUserWidget
 {
 	GENERATED_BODY()
 public:

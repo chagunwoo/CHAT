@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Player/CXPlayerController.h"
+#include "Player/CHATPlayerController.h"
 
-#include "UI/CXChatInput.h"
+#include "UI/CHATChatInput.h"
 #include "Kismet/KismetSystemLibrary.h"
 
-void ACXPlayerController::BeginPlay()
+void ACHATPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -21,7 +21,7 @@ void ACXPlayerController::BeginPlay()
 
 	if (IsValid(ChatInputWidgetClass) == true)
 	{
-		ChatInputWidgetInstance = CreateWidget<UCXChatInput>(this, ChatInputWidgetClass);
+		ChatInputWidgetInstance = CreateWidget<UCHATChatInput>(this, ChatInputWidgetClass);
 		if (IsValid(ChatInputWidgetInstance) == true)
 		{
 			ChatInputWidgetInstance->AddToViewport();
@@ -31,14 +31,14 @@ void ACXPlayerController::BeginPlay()
 	}
 }
 
-void ACXPlayerController::SetChatMessageString(const FString& InChatMessageSting)
+void ACHATPlayerController::SetChatMessageString(const FString& InChatMessageSting)
 {
 	ChatMessageString = InChatMessageSting;
 
 	PrintChatMessageString(ChatMessageString);
 }
 
-void ACXPlayerController::PrintChatMessageString(const FString& InChatMessageSting)
+void ACHATPlayerController::PrintChatMessageString(const FString& InChatMessageSting)
 {
 	UKismetSystemLibrary::PrintString(this, ChatMessageString, true, true, FLinearColor::Red, 5.0f);
 }

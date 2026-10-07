@@ -1,12 +1,12 @@
-// CXChatInput.cpp
+// CHATChatInput.cpp
 
 
-#include "UI/CXChatInput.h"
+#include "UI/CHATChatInput.h"
 
 #include "Components/EditableTextBox.h"
-#include "Player/CXPlayerController.h"
+#include "Player/CHATPlayerController.h"
 
-void UCXChatInput::NativeConstruct()
+void UCHATChatInput::NativeConstruct()
 {
 	Super::NativeConstruct();
 
@@ -16,7 +16,7 @@ void UCXChatInput::NativeConstruct()
 	}
 }
 
-void UCXChatInput::NativeDestruct()
+void UCHATChatInput::NativeDestruct()
 {
 	Super::NativeDestruct();
 
@@ -26,17 +26,17 @@ void UCXChatInput::NativeDestruct()
 	}
 }
 
-void UCXChatInput::OnChatInputTextCommitted(const FText& Text, ETextCommit::Type CommitMethod)
+void UCHATChatInput::OnChatInputTextCommitted(const FText& Text, ETextCommit::Type CommitMethod)
 {
 	if (CommitMethod == ETextCommit::OnEnter)
 	{
 		APlayerController* OwningPlayerController = GetOwningPlayer();
 		if (IsValid(OwningPlayerController) == true)
 		{
-			ACXPlayerController* OwningCXPlayerController = Cast<ACXPlayerController>(OwningPlayerController);
-			if (IsValid(OwningCXPlayerController) == true)
+			ACHATPlayerController* OwningCHATPlayerController = Cast<ACHATPlayerController>(OwningPlayerController);
+			if (IsValid(OwningCHATPlayerController) == true)
 			{
-				OwningCXPlayerController->SetChatMessageString(Text.ToString());
+				OwningCHATPlayerController->SetChatMessageString(Text.ToString());
 
 				EditableTextBox_ChatInput->SetText(FText());
 			}

@@ -1,10 +1,10 @@
-// CHATX.Build.cs
+// CHAT.Build.cs
 
 using UnrealBuildTool;
 
-public class CHATX : ModuleRules
+public class CHAT : ModuleRules
 {
-    public CHATX(ReadOnlyTargetRules Target) : base(Target)
+    public CHAT(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
@@ -20,6 +20,6 @@ public class CHATX : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 
-        PublicIncludePaths.AddRange(new string[] { "CHATX" });
+        PublicIncludePaths.AddRange(new string[] { "CHAT" });
     }
 }
