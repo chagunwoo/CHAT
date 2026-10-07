@@ -9,7 +9,8 @@ ps = unreal.load_class(None, '/Script/CHAT.CHATPlayerState')
 gs = unreal.load_class(None, '/Script/CHAT.CHATGameState')
 assert all((gm, pc, ps, gs)), 'CHAT native classes failed to load'
 
-for path in library.list_assets('/Game/ChatX', recursive=True, include_folder=False):
+old_assets = library.list_assets('/Game/ChatX', recursive=True, include_folder=False) if library.does_directory_exist('/Game/ChatX') else []
+for path in old_assets:
     if '/Maps/' in path:
         continue
     asset = library.load_asset(path)

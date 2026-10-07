@@ -57,6 +57,7 @@ TSharedRef<SWidget> UCHATChatInput::RebuildWidget()
     Layout->AddChildToVerticalBox(Row);
     EditableTextBox_ChatInput = WidgetTree->ConstructWidget<UEditableTextBox>(UEditableTextBox::StaticClass(), TEXT("EditableTextBox_ChatInput"));
     EditableTextBox_ChatInput->SetHintText(FText::FromString(TEXT("숫자: 123   |   채팅: /say 안녕하세요")));
+    EditableTextBox_ChatInput->SetForegroundColor(FLinearColor(0.025f, 0.035f, 0.06f));
     EditableTextBox_ChatInput->SetClearKeyboardFocusOnCommit(false);
     Row->AddChildToHorizontalBox(EditableTextBox_ChatInput)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     UButton* Send = WidgetTree->ConstructWidget<UButton>();
