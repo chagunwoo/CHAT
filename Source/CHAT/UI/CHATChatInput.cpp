@@ -83,9 +83,9 @@ void UCHATChatInput::NativeDestruct()
         EditableTextBox_ChatInput->OnTextCommitted.RemoveDynamic(this, &ThisClass::OnChatInputTextCommitted);
     Super::NativeDestruct();
 }
-void UCHATChatInput::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+void UCHATChatInput::FocusInput()
 {
-    Super::NativeTick(MyGeometry, InDeltaTime);
+    if (EditableTextBox_ChatInput) EditableTextBox_ChatInput->SetUserFocus(GetOwningPlayer());
 }
 void UCHATChatInput::OnChatInputTextCommitted(const FText& Text, ETextCommit::Type CommitMethod)
 {

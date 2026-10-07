@@ -3,19 +3,25 @@
 #include "Game/CHATGameState.h"
 #include "UI/CHATChatInput.h"
 #include "Engine/World.h"
+#if WITH_EDITOR
+void CHATStartNetworkSmoke(ACHATPlayerController* PC);
+#endif
 
 void ACHATPlayerController::BeginPlay()
 {
     Super::BeginPlay();
     if (!IsLocalController() || GetNetMode() == NM_DedicatedServer) return;
+#if WITH_EDITOR
+    CHATStartNetworkSmoke(this);
+#endif
     ChatInputWidgetInstance = CreateWidget<UCHATChatInput>(this, UCHATChatInput::StaticClass());
     if (ChatInputWidgetInstance)
     {
         ChatInputWidgetInstance->AddToViewport();
         bShowMouseCursor = true;
         FInputModeUIOnly InputMode;
-        InputMode.SetWidgetToFocus(ChatInputWidgetInstance->TakeWidget());
         SetInputMode(InputMode);
+        ChatInputWidgetInstance->FocusInput();
     }
 }
 void ACHATPlayerController::SetChatMessageString(const FString& Message)

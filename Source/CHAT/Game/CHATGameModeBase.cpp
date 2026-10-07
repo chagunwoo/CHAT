@@ -5,6 +5,8 @@
 #include "Player/CHATPlayerState.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogCHATGame, Log, All);
 
@@ -64,6 +66,10 @@ void ACHATGameModeBase::ResetGame()
     if (bReady)
     {
         SecretNumbers = UCHATNumberLibrary::GenerateRandomNumbers();
+#if WITH_EDITOR
+        // Deterministic only for explicitly requested editor network tests; absent from packaged games.
+        if (FParse::Param(FCommandLine::Get(), TEXT("CHATSmokeServer"))) SecretNumbers = TEXT("386");
+#endif
         Round.Phase = ECHATRoundPhase::Playing;
         Round.Announcement = TEXT("게임 시작! 1~9의 서로 다른 숫자 3개를 입력하세요.");
 #if !UE_BUILD_SHIPPING

@@ -14,7 +14,7 @@ public:
     virtual TSharedRef<SWidget> RebuildWidget() override;
     virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
-    virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+    void FocusInput();
 protected:
     UFUNCTION() void OnChatInputTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
     UFUNCTION() void SubmitInput();
