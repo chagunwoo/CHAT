@@ -3,6 +3,10 @@
 Unreal Engine **5.5.4 / C++ / UMG** 기반 멀티플레이 숫자 야구 과제입니다.
 기존 CHATX 채팅 프로젝트에서 출발해 프로젝트·모듈명을 CHAT으로, 모든 CX C++ 클래스 접두사를 CHAT으로 변경했습니다.
 
+![2인 접속 승리 결과 화면](Docs/Win.png)
+
+상세 검증 내용은 [검증 기록](Docs/Verification.md)을 참고하세요.
+
 ## 실행
 
 1. UE **5.5**와 Visual Studio의 C++ 게임 개발 도구를 설치합니다.
