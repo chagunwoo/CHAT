@@ -24,7 +24,6 @@ bool FCHATScoringTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Win"), UCHATNumberLibrary::CheckAnswer(TEXT("386"), TEXT("386")).ToString(), FString(TEXT("3S0B")));
     TestEqual(TEXT("Mixed"), UCHATNumberLibrary::CheckAnswer(TEXT("386"), TEXT("368")).ToString(), FString(TEXT("1S2B")));
     TestEqual(TEXT("All balls"), UCHATNumberLibrary::CheckAnswer(TEXT("386"), TEXT("863")).ToString(), FString(TEXT("0S3B")));
-    // Exhaust all 504 legal guesses against every legal secret using an independent membership oracle.
     TArray<FString> Values;
     for (int32 A = 1; A <= 9; ++A)
         for (int32 B = 1; B <= 9; ++B)

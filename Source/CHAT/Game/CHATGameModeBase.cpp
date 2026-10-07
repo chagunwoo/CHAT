@@ -67,7 +67,6 @@ void ACHATGameModeBase::ResetGame()
     {
         SecretNumbers = UCHATNumberLibrary::GenerateRandomNumbers();
 #if WITH_EDITOR
-        // Deterministic only for explicitly requested editor network tests; absent from packaged games.
         if (FParse::Param(FCommandLine::Get(), TEXT("CHATSmokeServer"))) SecretNumbers = TEXT("386");
 #endif
         Round.Phase = ECHATRoundPhase::Playing;

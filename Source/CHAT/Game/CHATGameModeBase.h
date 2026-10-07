@@ -18,7 +18,6 @@ public:
 private:
     void FinishRound(const FString& Announcement);
     void CheckDraw();
-    // Server-only. Never replicate the secret to clients.
     FString SecretNumbers;
     TArray<TWeakObjectPtr<ACHATPlayerController>> ConnectedPlayers;
     FTimerHandle ResetTimer;

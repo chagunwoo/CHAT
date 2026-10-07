@@ -1,4 +1,3 @@
-// Opt-in, editor-only integration test. Exercises real owning-client RPCs and replication.
 #if WITH_EDITOR
 #include "Player/CHATPlayerController.h"
 #include "Player/CHATPlayerState.h"
@@ -51,7 +50,6 @@ void CHATStartNetworkSmoke(ACHATPlayerController* PC)
             State->bSawResult = true;
             Verify(Round.Announcement.Contains(Scenario == TEXT("Win") ? TEXT("승리") : TEXT("무승부")), TEXT("Correct result replicated"));
             Verify(PS->GetAttemptsUsed() == (Role == TEXT("A") || Scenario == TEXT("Draw") ? 3 : 1), TEXT("Final attempts replicated"));
-            // Both clients try to send again during the result phase. No extra attempt or second winner is allowed.
             Controller->SetChatMessageString(TEXT("386"));
             return;
         }
@@ -62,7 +60,7 @@ void CHATStartNetworkSmoke(ACHATPlayerController* PC)
         }
         if (State->bSawResult && Round.Phase == ECHATRoundPhase::Playing && Round.RoundId > State->RoundId)
         {
-            if (++State->ResetTicks < 2) return; // Allow independent PlayerState replication to arrive.
+            if (++State->ResetTicks < 2) return;
             Verify(PS->GetAttemptsUsed() == 0, TEXT("New round resets local attempts"));
             Verify(GS->PlayerArray.Num() == 2, TEXT("Two remote players present"));
             for (const APlayerState* Player : GS->PlayerArray)

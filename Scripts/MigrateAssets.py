@@ -1,4 +1,3 @@
-"""Run once with UE 5.5 PythonScript commandlet after compiling CHATEditor."""
 import unreal
 import gc
 

@@ -115,7 +115,6 @@ Automation RunTests CHAT.Rules
 ```powershell
 .\Scripts\Test-Network.ps1 -Scenario Win
 .\Scripts\Test-Network.ps1 -Scenario Draw
-# 결과 화면 캡처를 함께 저장하려면 -Capture 추가
 ```
 
 테스트는 채팅 양방향 전달, 잘못된 입력의 기회 유지, 이전 라운드 요청 거절, 개인별 횟수 독립성, 4번째 입력 거절, 결과 복제, 자동 리셋을 두 클라이언트에서 검사합니다. 로그는 `Saved/NetworkTests`에 저장됩니다. `CHATSmokeServer` 고정 정답은 **WITH_EDITOR 조건의 테스트 실행에서만** 켜지며 일반 실행과 패키징 게임에서는 사용하지 않습니다.
