@@ -15,6 +15,9 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     void HandleMessage(ACHATPlayerController* Sender, const FString& Message, int32 SubmittedRoundId);
     void ResetGame();
+#if WITH_EDITOR
+    const FString& GetDemoAnswer() const { return SecretNumbers; }
+#endif
 private:
     void FinishRound(const FString& Announcement);
     void CheckDraw();

@@ -2,6 +2,7 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
+#include "Components/CheckBox.h"
 #include "Components/EditableTextBox.h"
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
@@ -10,6 +11,7 @@
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Game/CHATGameState.h"
+#include "Game/CHATGameModeBase.h"
 #include "Player/CHATPlayerController.h"
 #include "Player/CHATPlayerState.h"
 #include "Engine/World.h"
@@ -41,6 +43,22 @@ TSharedRef<SWidget> UCHATChatInput::RebuildWidget()
     Status = MakeText(TEXT("서버에 연결 중..."), 18, FLinearColor::White);
     Scoreboard = MakeText(TEXT(""), 17, FLinearColor(0.7f, 0.85f, 1.0f));
     Announcement = MakeText(TEXT(""), 24, FLinearColor(1.0f, 0.8f, 0.25f));
+
+#if WITH_EDITOR
+    const APlayerController* Owner = GetOwningPlayer();
+    if (Owner && Owner->IsLocalController() && Owner->HasAuthority())
+    {
+        UCheckBox* Toggle = WidgetTree->ConstructWidget<UCheckBox>();
+        UTextBlock* Label = WidgetTree->ConstructWidget<UTextBlock>();
+        Label->SetText(FText::FromString(TEXT("시연용 정답 보기 (호스트만)")));
+        Toggle->SetContent(Label);
+        Toggle->SetIsChecked(bShowDemoAnswer);
+        Toggle->OnCheckStateChanged.AddDynamic(this, &ThisClass::OnDemoAnswerChanged);
+        Layout->AddChildToVerticalBox(Toggle)->SetPadding(FMargin(0, 0, 0, 8));
+        DemoAnswer = MakeText(TEXT(""), 18, FLinearColor(0.3f, 0.95f, 0.72f));
+        DemoAnswer->SetVisibility(ESlateVisibility::Collapsed);
+    }
+#endif
 
     HistoryScroll = WidgetTree->ConstructWidget<UScrollBox>();
     UVerticalBoxSlot* ScrollSlot = Layout->AddChildToVerticalBox(HistoryScroll);
@@ -111,6 +129,17 @@ void UCHATChatInput::RefreshView()
     if (!PC || !Status) return;
     const ACHATGameState* GS = GetWorld()->GetGameState<ACHATGameState>();
     const ACHATPlayerState* LocalPS = PC->GetPlayerState<ACHATPlayerState>();
+#if WITH_EDITOR
+    if (DemoAnswer)
+    {
+        const ACHATGameModeBase* GM = GetWorld()->GetAuthGameMode<ACHATGameModeBase>();
+        const bool bVisible = bShowDemoAnswer && PC->IsLocalController() && PC->HasAuthority() && GM;
+        DemoAnswer->SetVisibility(bVisible ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+        DemoAnswer->SetText(bVisible ? FText::FromString(GM->GetDemoAnswer().IsEmpty()
+            ? TEXT("[시연용] 플레이어 접속 대기 중")
+            : FString::Printf(TEXT("[시연용] 이번 라운드 정답: %s"), *GM->GetDemoAnswer())) : FText::GetEmpty());
+    }
+#endif
     if (GS)
     {
         const FCHATRoundState& Round = GS->GetRound();
@@ -142,4 +171,13 @@ void UCHATChatInput::RefreshView()
         History->SetText(FText::FromString(FString::Join(PC->GetMessages(), TEXT("\n"))));
         HistoryScroll->ScrollToEnd();
     }
+}
+
+void UCHATChatInput::OnDemoAnswerChanged(bool bChecked)
+{
+#if WITH_EDITOR
+    const APlayerController* Owner = GetOwningPlayer();
+    bShowDemoAnswer = bChecked && Owner && Owner->IsLocalController() && Owner->HasAuthority();
+    RefreshView();
+#endif
 }

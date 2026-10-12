@@ -19,6 +19,7 @@ protected:
     UFUNCTION() void OnChatInputTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
     UFUNCTION() void SubmitInput();
     UFUNCTION() void RefreshView();
+    UFUNCTION() void OnDemoAnswerChanged(bool bChecked);
     UPROPERTY(meta=(BindWidgetOptional)) TObjectPtr<UEditableTextBox> EditableTextBox_ChatInput;
 private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Status;
@@ -26,6 +27,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Announcement;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> History;
     UPROPERTY(Transient) TObjectPtr<UScrollBox> HistoryScroll;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> DemoAnswer;
+    bool bShowDemoAnswer = false;
     FTimerHandle RefreshTimer;
     int32 LastMessageRevision = -1;
 };
